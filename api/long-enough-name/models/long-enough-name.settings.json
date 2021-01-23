@@ -1,0 +1,17 @@
+{
+  "kind": "collectionType",
+  "collectionName": "long_enough_names",
+  "info": {
+    "name": "long_enough_name"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string"
+    }
+  }
+}

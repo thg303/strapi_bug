@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/long-enough-names",
+      "handler": "long-enough-name.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/long-enough-names/count",
+      "handler": "long-enough-name.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/long-enough-names/:id",
+      "handler": "long-enough-name.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/long-enough-names",
+      "handler": "long-enough-name.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/long-enough-names/:id",
+      "handler": "long-enough-name.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/long-enough-names/:id",
+      "handler": "long-enough-name.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

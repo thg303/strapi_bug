@@ -1,0 +1,17 @@
+{
+  "kind": "collectionType",
+  "collectionName": "yet_another_names",
+  "info": {
+    "name": "yet_another_name"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string"
+    }
+  }
+}

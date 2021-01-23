@@ -73,6 +73,45 @@ ALTER SEQUENCE public.core_store_id_seq OWNED BY public.core_store.id;
 
 
 --
+-- Name: long_enough_names; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.long_enough_names (
+    id integer NOT NULL,
+    name character varying(255),
+    published_at timestamp with time zone,
+    created_by integer,
+    updated_by integer,
+    created_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP
+);
+
+
+ALTER TABLE public.long_enough_names OWNER TO postgres;
+
+--
+-- Name: long_enough_names_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.long_enough_names_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.long_enough_names_id_seq OWNER TO postgres;
+
+--
+-- Name: long_enough_names_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.long_enough_names_id_seq OWNED BY public.long_enough_names.id;
+
+
+--
 -- Name: strapi_administrator; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -480,10 +519,56 @@ ALTER SEQUENCE public."users-permissions_user_id_seq" OWNED BY public."users-per
 
 
 --
+-- Name: yet_another_names; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.yet_another_names (
+    id integer NOT NULL,
+    title character varying(255),
+    published_at timestamp with time zone,
+    created_by integer,
+    updated_by integer,
+    created_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP
+);
+
+
+ALTER TABLE public.yet_another_names OWNER TO postgres;
+
+--
+-- Name: yet_another_names_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.yet_another_names_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.yet_another_names_id_seq OWNER TO postgres;
+
+--
+-- Name: yet_another_names_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.yet_another_names_id_seq OWNED BY public.yet_another_names.id;
+
+
+--
 -- Name: core_store id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.core_store ALTER COLUMN id SET DEFAULT nextval('public.core_store_id_seq'::regclass);
+
+
+--
+-- Name: long_enough_names id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.long_enough_names ALTER COLUMN id SET DEFAULT nextval('public.long_enough_names_id_seq'::regclass);
 
 
 --
@@ -557,19 +642,23 @@ ALTER TABLE ONLY public."users-permissions_user" ALTER COLUMN id SET DEFAULT nex
 
 
 --
+-- Name: yet_another_names id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.yet_another_names ALTER COLUMN id SET DEFAULT nextval('public.yet_another_names_id_seq'::regclass);
+
+
+--
 -- Data for Name: core_store; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.core_store (id, key, value, type, environment, tag) FROM stdin;
 1	model_def_strapi::core-store	{"uid":"strapi::core-store","collectionName":"core_store","info":{"name":"core_store","description":""},"options":{"timestamps":false},"attributes":{"key":{"type":"string"},"value":{"type":"text"},"type":{"type":"string"},"environment":{"type":"string"},"tag":{"type":"string"}}}	object	\N	\N
 2	model_def_strapi::webhooks	{"uid":"strapi::webhooks","collectionName":"strapi_webhooks","info":{"name":"Strapi webhooks","description":""},"options":{"timestamps":false},"attributes":{"name":{"type":"string"},"url":{"type":"text"},"headers":{"type":"json"},"events":{"type":"json"},"enabled":{"type":"boolean"}}}	object	\N	\N
-3	model_def_strapi::permission	{"uid":"strapi::permission","collectionName":"strapi_permission","kind":"collectionType","info":{"name":"Permission","description":""},"options":{"timestamps":["created_at","updated_at"]},"attributes":{"action":{"type":"string","minLength":1,"configurable":false,"required":true},"subject":{"type":"string","minLength":1,"configurable":false,"required":false},"fields":{"type":"json","configurable":false,"required":false,"default":[]},"conditions":{"type":"json","configurable":false,"required":false,"default":[]},"role":{"configurable":false,"model":"role","plugin":"admin"}}}	object	\N	\N
 4	model_def_strapi::role	{"uid":"strapi::role","collectionName":"strapi_role","kind":"collectionType","info":{"name":"Role","description":""},"options":{"timestamps":["created_at","updated_at"]},"attributes":{"name":{"type":"string","minLength":1,"unique":true,"configurable":false,"required":true},"code":{"type":"string","minLength":1,"unique":true,"configurable":false,"required":true},"description":{"type":"string","configurable":false},"users":{"configurable":false,"collection":"user","via":"roles","plugin":"admin","attribute":"user","column":"id","isVirtual":true},"permissions":{"configurable":false,"plugin":"admin","collection":"permission","via":"role","isVirtual":true}}}	object	\N	\N
-5	model_def_strapi::user	{"uid":"strapi::user","collectionName":"strapi_administrator","kind":"collectionType","info":{"name":"User","description":""},"options":{"timestamps":false},"attributes":{"firstname":{"type":"string","unique":false,"minLength":1,"configurable":false,"required":false},"lastname":{"type":"string","unique":false,"minLength":1,"configurable":false,"required":false},"username":{"type":"string","unique":false,"configurable":false,"required":false},"email":{"type":"email","minLength":6,"configurable":false,"required":true,"unique":true,"private":true},"password":{"type":"password","minLength":6,"configurable":false,"required":false,"private":true},"resetPasswordToken":{"type":"string","configurable":false,"private":true},"registrationToken":{"type":"string","configurable":false,"private":true},"isActive":{"type":"boolean","default":false,"configurable":false,"private":true},"roles":{"collection":"role","collectionName":"strapi_users_roles","via":"users","dominant":true,"plugin":"admin","configurable":false,"private":true,"attribute":"role","column":"id","isVirtual":true},"blocked":{"type":"boolean","default":false,"configurable":false,"private":true}}}	object	\N	\N
 6	model_def_plugins::users-permissions.permission	{"uid":"plugins::users-permissions.permission","collectionName":"users-permissions_permission","kind":"collectionType","info":{"name":"permission","description":""},"options":{"timestamps":false},"attributes":{"type":{"type":"string","required":true,"configurable":false},"controller":{"type":"string","required":true,"configurable":false},"action":{"type":"string","required":true,"configurable":false},"enabled":{"type":"boolean","required":true,"configurable":false},"policy":{"type":"string","configurable":false},"role":{"model":"role","via":"permissions","plugin":"users-permissions","configurable":false},"created_by":{"model":"user","plugin":"admin","configurable":false,"writable":false,"private":true},"updated_by":{"model":"user","plugin":"admin","configurable":false,"writable":false,"private":true}}}	object	\N	\N
 7	model_def_plugins::users-permissions.role	{"uid":"plugins::users-permissions.role","collectionName":"users-permissions_role","kind":"collectionType","info":{"name":"role","description":""},"options":{"timestamps":false},"attributes":{"name":{"type":"string","minLength":3,"required":true,"configurable":false},"description":{"type":"string","configurable":false},"type":{"type":"string","unique":true,"configurable":false},"permissions":{"collection":"permission","via":"role","plugin":"users-permissions","configurable":false,"isVirtual":true},"users":{"collection":"user","via":"role","configurable":false,"plugin":"users-permissions","isVirtual":true},"created_by":{"model":"user","plugin":"admin","configurable":false,"writable":false,"private":true},"updated_by":{"model":"user","plugin":"admin","configurable":false,"writable":false,"private":true}}}	object	\N	\N
 8	model_def_plugins::users-permissions.user	{"uid":"plugins::users-permissions.user","collectionName":"users-permissions_user","kind":"collectionType","info":{"name":"user","description":""},"options":{"draftAndPublish":false,"timestamps":["created_at","updated_at"]},"attributes":{"username":{"type":"string","minLength":3,"unique":true,"configurable":false,"required":true},"email":{"type":"email","minLength":6,"configurable":false,"required":true},"provider":{"type":"string","configurable":false},"password":{"type":"password","minLength":6,"configurable":false,"private":true},"resetPasswordToken":{"type":"string","configurable":false,"private":true},"confirmationToken":{"type":"string","configurable":false,"private":true},"confirmed":{"type":"boolean","default":false,"configurable":false},"blocked":{"type":"boolean","default":false,"configurable":false},"role":{"model":"role","via":"users","plugin":"users-permissions","configurable":false},"created_by":{"model":"user","plugin":"admin","configurable":false,"writable":false,"private":true},"updated_by":{"model":"user","plugin":"admin","configurable":false,"writable":false,"private":true}}}	object	\N	\N
-9	model_def_plugins::upload.file	{"uid":"plugins::upload.file","collectionName":"upload_file","kind":"collectionType","info":{"name":"file","description":""},"options":{"timestamps":["created_at","updated_at"]},"attributes":{"name":{"type":"string","configurable":false,"required":true},"alternativeText":{"type":"string","configurable":false},"caption":{"type":"string","configurable":false},"width":{"type":"integer","configurable":false},"height":{"type":"integer","configurable":false},"formats":{"type":"json","configurable":false},"hash":{"type":"string","configurable":false,"required":true},"ext":{"type":"string","configurable":false},"mime":{"type":"string","configurable":false,"required":true},"size":{"type":"decimal","configurable":false,"required":true},"url":{"type":"string","configurable":false,"required":true},"previewUrl":{"type":"string","configurable":false},"provider":{"type":"string","configurable":false,"required":true},"provider_metadata":{"type":"json","configurable":false},"related":{"collection":"*","filter":"field","configurable":false},"created_by":{"model":"user","plugin":"admin","configurable":false,"writable":false,"private":true},"updated_by":{"model":"user","plugin":"admin","configurable":false,"writable":false,"private":true}}}	object	\N	\N
 10	plugin_users-permissions_grant	{"email":{"enabled":true,"icon":"envelope"},"discord":{"enabled":false,"icon":"discord","key":"","secret":"","callback":"/auth/discord/callback","scope":["identify","email"]},"facebook":{"enabled":false,"icon":"facebook-square","key":"","secret":"","callback":"/auth/facebook/callback","scope":["email"]},"google":{"enabled":false,"icon":"google","key":"","secret":"","callback":"/auth/google/callback","scope":["email"]},"github":{"enabled":false,"icon":"github","key":"","secret":"","callback":"/auth/github/callback","scope":["user","user:email"]},"microsoft":{"enabled":false,"icon":"windows","key":"","secret":"","callback":"/auth/microsoft/callback","scope":["user.read"]},"twitter":{"enabled":false,"icon":"twitter","key":"","secret":"","callback":"/auth/twitter/callback"},"instagram":{"enabled":false,"icon":"instagram","key":"","secret":"","callback":"/auth/instagram/callback","scope":["user_profile"]},"vk":{"enabled":false,"icon":"vk","key":"","secret":"","callback":"/auth/vk/callback","scope":["email"]},"twitch":{"enabled":false,"icon":"twitch","key":"","secret":"","callback":"/auth/twitch/callback","scope":["user:read:email"]},"linkedin":{"enabled":false,"icon":"linkedin","key":"","secret":"","callback":"/auth/linkedin/callback","scope":["r_liteprofile","r_emailaddress"]},"cognito":{"enabled":false,"icon":"aws","key":"","secret":"","subdomain":"my.subdomain.com","callback":"/auth/cognito/callback","scope":["email","openid","profile"]}}	object		
 11	plugin_upload_settings	{"sizeOptimization":true,"responsiveDimensions":true}	object	development	
 12	plugin_content_manager_configuration_content_types::strapi::permission	{"uid":"strapi::permission","settings":{"bulkable":true,"filterable":true,"searchable":true,"pageSize":10,"mainField":"action","defaultSortBy":"action","defaultSortOrder":"ASC"},"metadatas":{"id":{"edit":{},"list":{"label":"Id","searchable":true,"sortable":true}},"action":{"edit":{"label":"Action","description":"","placeholder":"","visible":true,"editable":true},"list":{"label":"Action","searchable":true,"sortable":true}},"subject":{"edit":{"label":"Subject","description":"","placeholder":"","visible":true,"editable":true},"list":{"label":"Subject","searchable":true,"sortable":true}},"fields":{"edit":{"label":"Fields","description":"","placeholder":"","visible":true,"editable":true},"list":{"label":"Fields","searchable":false,"sortable":false}},"conditions":{"edit":{"label":"Conditions","description":"","placeholder":"","visible":true,"editable":true},"list":{"label":"Conditions","searchable":false,"sortable":false}},"role":{"edit":{"label":"Role","description":"","placeholder":"","visible":true,"editable":true,"mainField":"name"},"list":{"label":"Role","searchable":true,"sortable":true}},"created_at":{"edit":{"label":"Created_at","description":"","placeholder":"","visible":false,"editable":true},"list":{"label":"Created_at","searchable":true,"sortable":true}},"updated_at":{"edit":{"label":"Updated_at","description":"","placeholder":"","visible":false,"editable":true},"list":{"label":"Updated_at","searchable":true,"sortable":true}}},"layouts":{"list":["id","action","subject","role"],"editRelations":["role"],"edit":[[{"name":"action","size":6},{"name":"subject","size":6}],[{"name":"fields","size":12}],[{"name":"conditions","size":12}]]}}	object		
@@ -581,6 +670,21 @@ COPY public.core_store (id, key, value, type, environment, tag) FROM stdin;
 18	plugin_content_manager_configuration_content_types::plugins::upload.file	{"uid":"plugins::upload.file","settings":{"bulkable":true,"filterable":true,"searchable":true,"pageSize":10,"mainField":"name","defaultSortBy":"name","defaultSortOrder":"ASC"},"metadatas":{"id":{"edit":{},"list":{"label":"Id","searchable":true,"sortable":true}},"name":{"edit":{"label":"Name","description":"","placeholder":"","visible":true,"editable":true},"list":{"label":"Name","searchable":true,"sortable":true}},"alternativeText":{"edit":{"label":"AlternativeText","description":"","placeholder":"","visible":true,"editable":true},"list":{"label":"AlternativeText","searchable":true,"sortable":true}},"caption":{"edit":{"label":"Caption","description":"","placeholder":"","visible":true,"editable":true},"list":{"label":"Caption","searchable":true,"sortable":true}},"width":{"edit":{"label":"Width","description":"","placeholder":"","visible":true,"editable":true},"list":{"label":"Width","searchable":true,"sortable":true}},"height":{"edit":{"label":"Height","description":"","placeholder":"","visible":true,"editable":true},"list":{"label":"Height","searchable":true,"sortable":true}},"formats":{"edit":{"label":"Formats","description":"","placeholder":"","visible":true,"editable":true},"list":{"label":"Formats","searchable":false,"sortable":false}},"hash":{"edit":{"label":"Hash","description":"","placeholder":"","visible":true,"editable":true},"list":{"label":"Hash","searchable":true,"sortable":true}},"ext":{"edit":{"label":"Ext","description":"","placeholder":"","visible":true,"editable":true},"list":{"label":"Ext","searchable":true,"sortable":true}},"mime":{"edit":{"label":"Mime","description":"","placeholder":"","visible":true,"editable":true},"list":{"label":"Mime","searchable":true,"sortable":true}},"size":{"edit":{"label":"Size","description":"","placeholder":"","visible":true,"editable":true},"list":{"label":"Size","searchable":true,"sortable":true}},"url":{"edit":{"label":"Url","description":"","placeholder":"","visible":true,"editable":true},"list":{"label":"Url","searchable":true,"sortable":true}},"previewUrl":{"edit":{"label":"PreviewUrl","description":"","placeholder":"","visible":true,"editable":true},"list":{"label":"PreviewUrl","searchable":true,"sortable":true}},"provider":{"edit":{"label":"Provider","description":"","placeholder":"","visible":true,"editable":true},"list":{"label":"Provider","searchable":true,"sortable":true}},"provider_metadata":{"edit":{"label":"Provider_metadata","description":"","placeholder":"","visible":true,"editable":true},"list":{"label":"Provider_metadata","searchable":false,"sortable":false}},"related":{"edit":{"label":"Related","description":"","placeholder":"","visible":true,"editable":true},"list":{"label":"Related","searchable":false,"sortable":false}},"created_at":{"edit":{"label":"Created_at","description":"","placeholder":"","visible":false,"editable":true},"list":{"label":"Created_at","searchable":true,"sortable":true}},"updated_at":{"edit":{"label":"Updated_at","description":"","placeholder":"","visible":false,"editable":true},"list":{"label":"Updated_at","searchable":true,"sortable":true}}},"layouts":{"list":["id","name","alternativeText","caption"],"editRelations":["related"],"edit":[[{"name":"name","size":6},{"name":"alternativeText","size":6}],[{"name":"caption","size":6},{"name":"width","size":4}],[{"name":"height","size":4}],[{"name":"formats","size":12}],[{"name":"hash","size":6},{"name":"ext","size":6}],[{"name":"mime","size":6},{"name":"size","size":4}],[{"name":"url","size":6},{"name":"previewUrl","size":6}],[{"name":"provider","size":6}],[{"name":"provider_metadata","size":12}]]}}	object		
 19	plugin_users-permissions_email	{"reset_password":{"display":"Email.template.reset_password","icon":"sync","options":{"from":{"name":"Administration Panel","email":"no-reply@strapi.io"},"response_email":"","object":"Reset password","message":"<p>We heard that you lost your password. Sorry about that!</p>\\n\\n<p>But don’t worry! You can use the following link to reset your password:</p>\\n<p><%= URL %>?code=<%= TOKEN %></p>\\n\\n<p>Thanks.</p>"}},"email_confirmation":{"display":"Email.template.email_confirmation","icon":"check-square","options":{"from":{"name":"Administration Panel","email":"no-reply@strapi.io"},"response_email":"","object":"Account confirmation","message":"<p>Thank you for registering!</p>\\n\\n<p>You have to confirm your email address. Please click on the link below.</p>\\n\\n<p><%= URL %>?confirmation=<%= CODE %></p>\\n\\n<p>Thanks.</p>"}}}	object		
 20	plugin_users-permissions_advanced	{"unique_email":true,"allow_register":true,"email_confirmation":false,"email_reset_password":null,"email_confirmation_redirection":null,"default_role":"authenticated"}	object		
+21	model_def_application::long-enough-name.long-enough-name	{"uid":"application::long-enough-name.long-enough-name","collectionName":"long_enough_names","kind":"collectionType","info":{"name":"long_enough_name"},"options":{"increments":true,"timestamps":["created_at","updated_at"],"draftAndPublish":true},"attributes":{"name":{"type":"string"},"published_at":{"type":"datetime","configurable":false},"created_by":{"model":"user","plugin":"admin","configurable":false,"writable":false,"private":true},"updated_by":{"model":"user","plugin":"admin","configurable":false,"writable":false,"private":true}}}	object	\N	\N
+3	model_def_strapi::permission	{"uid":"strapi::permission","collectionName":"strapi_permission","kind":"collectionType","info":{"name":"Permission","description":""},"options":{"timestamps":["created_at","updated_at"]},"attributes":{"action":{"type":"string","minLength":1,"configurable":false,"required":true},"subject":{"type":"string","minLength":1,"configurable":false,"required":false},"fields":{"type":"json","configurable":false,"required":false,"default":[]},"conditions":{"type":"json","configurable":false,"required":false,"default":[]},"role":{"configurable":false,"model":"role","plugin":"admin"}}}	object	\N	\N
+5	model_def_strapi::user	{"uid":"strapi::user","collectionName":"strapi_administrator","kind":"collectionType","info":{"name":"User","description":""},"options":{"timestamps":false},"attributes":{"firstname":{"type":"string","unique":false,"minLength":1,"configurable":false,"required":false},"lastname":{"type":"string","unique":false,"minLength":1,"configurable":false,"required":false},"username":{"type":"string","unique":false,"configurable":false,"required":false},"email":{"type":"email","minLength":6,"configurable":false,"required":true,"unique":true,"private":true},"password":{"type":"password","minLength":6,"configurable":false,"required":false,"private":true},"resetPasswordToken":{"type":"string","configurable":false,"private":true},"registrationToken":{"type":"string","configurable":false,"private":true},"isActive":{"type":"boolean","default":false,"configurable":false,"private":true},"roles":{"collection":"role","collectionName":"strapi_users_roles","via":"users","dominant":true,"plugin":"admin","configurable":false,"private":true,"attribute":"role","column":"id","isVirtual":true},"blocked":{"type":"boolean","default":false,"configurable":false,"private":true}}}	object	\N	\N
+22	plugin_content_manager_configuration_content_types::application::long-enough-name.long-enough-name	{"uid":"application::long-enough-name.long-enough-name","settings":{"bulkable":true,"filterable":true,"searchable":true,"pageSize":10,"mainField":"name","defaultSortBy":"name","defaultSortOrder":"ASC"},"metadatas":{"id":{"edit":{},"list":{"label":"Id","searchable":true,"sortable":true}},"name":{"edit":{"label":"Name","description":"","placeholder":"","visible":true,"editable":true},"list":{"label":"Name","searchable":true,"sortable":true}},"published_at":{"edit":{"label":"Published_at","description":"","placeholder":"","visible":false,"editable":true},"list":{"label":"Published_at","searchable":true,"sortable":true}},"created_at":{"edit":{"label":"Created_at","description":"","placeholder":"","visible":false,"editable":true},"list":{"label":"Created_at","searchable":true,"sortable":true}},"updated_at":{"edit":{"label":"Updated_at","description":"","placeholder":"","visible":false,"editable":true},"list":{"label":"Updated_at","searchable":true,"sortable":true}}},"layouts":{"list":["id","name","published_at","created_at"],"editRelations":[],"edit":[[{"name":"name","size":6}]]}}	object		
+23	model_def_application::yet-another-name.yet-another-name	{"uid":"application::yet-another-name.yet-another-name","collectionName":"yet_another_names","kind":"collectionType","info":{"name":"yet_another_name"},"options":{"increments":true,"timestamps":["created_at","updated_at"],"draftAndPublish":true},"attributes":{"title":{"type":"string"},"published_at":{"type":"datetime","configurable":false},"created_by":{"model":"user","plugin":"admin","configurable":false,"writable":false,"private":true},"updated_by":{"model":"user","plugin":"admin","configurable":false,"writable":false,"private":true}}}	object	\N	\N
+9	model_def_plugins::upload.file	{"uid":"plugins::upload.file","collectionName":"upload_file","kind":"collectionType","info":{"name":"file","description":""},"options":{"timestamps":["created_at","updated_at"]},"attributes":{"name":{"type":"string","configurable":false,"required":true},"alternativeText":{"type":"string","configurable":false},"caption":{"type":"string","configurable":false},"width":{"type":"integer","configurable":false},"height":{"type":"integer","configurable":false},"formats":{"type":"json","configurable":false},"hash":{"type":"string","configurable":false,"required":true},"ext":{"type":"string","configurable":false},"mime":{"type":"string","configurable":false,"required":true},"size":{"type":"decimal","configurable":false,"required":true},"url":{"type":"string","configurable":false,"required":true},"previewUrl":{"type":"string","configurable":false},"provider":{"type":"string","configurable":false,"required":true},"provider_metadata":{"type":"json","configurable":false},"related":{"collection":"*","filter":"field","configurable":false},"created_by":{"model":"user","plugin":"admin","configurable":false,"writable":false,"private":true},"updated_by":{"model":"user","plugin":"admin","configurable":false,"writable":false,"private":true}}}	object	\N	\N
+24	plugin_content_manager_configuration_content_types::application::yet-another-name.yet-another-name	{"uid":"application::yet-another-name.yet-another-name","settings":{"bulkable":true,"filterable":true,"searchable":true,"pageSize":10,"mainField":"title","defaultSortBy":"title","defaultSortOrder":"ASC"},"metadatas":{"id":{"edit":{},"list":{"label":"Id","searchable":true,"sortable":true}},"title":{"edit":{"label":"Title","description":"","placeholder":"","visible":true,"editable":true},"list":{"label":"Title","searchable":true,"sortable":true}},"published_at":{"edit":{"label":"Published_at","description":"","placeholder":"","visible":false,"editable":true},"list":{"label":"Published_at","searchable":true,"sortable":true}},"created_at":{"edit":{"label":"Created_at","description":"","placeholder":"","visible":false,"editable":true},"list":{"label":"Created_at","searchable":true,"sortable":true}},"updated_at":{"edit":{"label":"Updated_at","description":"","placeholder":"","visible":false,"editable":true},"list":{"label":"Updated_at","searchable":true,"sortable":true}}},"layouts":{"list":["id","title","published_at","created_at"],"editRelations":[],"edit":[[{"name":"title","size":6}]]}}	object		
+\.
+
+
+--
+-- Data for Name: long_enough_names; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.long_enough_names (id, name, published_at, created_by, updated_by, created_at, updated_at) FROM stdin;
 \.
 
 
@@ -647,6 +751,16 @@ COPY public.strapi_permission (id, action, subject, fields, conditions, role, cr
 42	admin::users.create	\N	\N	[]	1	2021-01-23 19:41:43.233+03:30	2021-01-23 19:41:43.25+03:30
 43	admin::users.read	\N	\N	[]	1	2021-01-23 19:41:43.236+03:30	2021-01-23 19:41:43.253+03:30
 45	admin::users.delete	\N	\N	[]	1	2021-01-23 19:41:43.237+03:30	2021-01-23 19:41:43.253+03:30
+50	plugins::content-manager.explorer.create	application::long-enough-name.long-enough-name	["name"]	[]	1	2021-01-23 19:46:21.656+03:30	2021-01-23 19:46:21.671+03:30
+51	plugins::content-manager.explorer.read	application::long-enough-name.long-enough-name	["name"]	[]	1	2021-01-23 19:46:21.656+03:30	2021-01-23 19:46:21.671+03:30
+52	plugins::content-manager.explorer.update	application::long-enough-name.long-enough-name	["name"]	[]	1	2021-01-23 19:46:21.656+03:30	2021-01-23 19:46:21.671+03:30
+53	plugins::content-manager.explorer.delete	application::long-enough-name.long-enough-name	\N	[]	1	2021-01-23 19:46:21.657+03:30	2021-01-23 19:46:21.671+03:30
+54	plugins::content-manager.explorer.publish	application::long-enough-name.long-enough-name	\N	[]	1	2021-01-23 19:46:21.657+03:30	2021-01-23 19:46:21.672+03:30
+55	plugins::content-manager.explorer.create	application::yet-another-name.yet-another-name	["title"]	[]	1	2021-01-23 19:47:02.478+03:30	2021-01-23 19:47:02.522+03:30
+56	plugins::content-manager.explorer.read	application::yet-another-name.yet-another-name	["title"]	[]	1	2021-01-23 19:47:02.48+03:30	2021-01-23 19:47:02.523+03:30
+57	plugins::content-manager.explorer.update	application::yet-another-name.yet-another-name	["title"]	[]	1	2021-01-23 19:47:02.482+03:30	2021-01-23 19:47:02.524+03:30
+58	plugins::content-manager.explorer.delete	application::yet-another-name.yet-another-name	\N	[]	1	2021-01-23 19:47:02.483+03:30	2021-01-23 19:47:02.526+03:30
+59	plugins::content-manager.explorer.publish	application::yet-another-name.yet-another-name	\N	[]	1	2021-01-23 19:47:02.484+03:30	2021-01-23 19:47:02.535+03:30
 \.
 
 
@@ -775,8 +889,12 @@ COPY public."users-permissions_permission" (id, type, controller, action, enable
 74	content-type-builder	contenttypes	updatecontenttype	f		2	\N	\N
 79	upload	upload	destroy	f		1	\N	\N
 80	upload	upload	destroy	f		2	\N	\N
+155	application	long-enough-name	count	f		1	\N	\N
 81	upload	upload	find	f		1	\N	\N
 82	upload	upload	find	f		2	\N	\N
+165	application	long-enough-name	update	f		1	\N	\N
+168	application	yet-another-name	count	f		2	\N	\N
+178	application	yet-another-name	update	f		2	\N	\N
 75	email	email	send	f		1	\N	\N
 88	upload	upload	search	f		2	\N	\N
 94	users-permissions	auth	callback	t		2	\N	\N
@@ -786,6 +904,8 @@ COPY public."users-permissions_permission" (id, type, controller, action, enable
 134	users-permissions	userspermissions	getpolicies	f		2	\N	\N
 146	users-permissions	userspermissions	searchusers	f		2	\N	\N
 154	users-permissions	userspermissions	updaterole	f		2	\N	\N
+156	application	long-enough-name	count	f		2	\N	\N
+169	application	yet-another-name	create	f		1	\N	\N
 76	email	email	send	f		2	\N	\N
 87	upload	upload	search	f		1	\N	\N
 96	users-permissions	auth	connect	t		2	\N	\N
@@ -794,6 +914,8 @@ COPY public."users-permissions_permission" (id, type, controller, action, enable
 125	users-permissions	userspermissions	deleterole	f		1	\N	\N
 133	users-permissions	userspermissions	getpolicies	f		1	\N	\N
 144	users-permissions	userspermissions	index	f		2	\N	\N
+157	application	long-enough-name	create	f		1	\N	\N
+170	application	yet-another-name	create	f		2	\N	\N
 77	upload	upload	count	f		1	\N	\N
 85	upload	upload	getsettings	f		1	\N	\N
 98	users-permissions	auth	emailconfirmation	t		2	\N	\N
@@ -802,6 +924,8 @@ COPY public."users-permissions_permission" (id, type, controller, action, enable
 127	users-permissions	userspermissions	getadvancedsettings	f		1	\N	\N
 136	users-permissions	userspermissions	getproviders	f		2	\N	\N
 148	users-permissions	userspermissions	updateadvancedsettings	f		2	\N	\N
+158	application	long-enough-name	create	f		2	\N	\N
+171	application	yet-another-name	delete	f		1	\N	\N
 78	upload	upload	count	f		2	\N	\N
 84	upload	upload	findone	f		2	\N	\N
 95	users-permissions	auth	connect	t		1	\N	\N
@@ -811,6 +935,8 @@ COPY public."users-permissions_permission" (id, type, controller, action, enable
 138	users-permissions	userspermissions	getrole	f		2	\N	\N
 147	users-permissions	userspermissions	updateadvancedsettings	f		1	\N	\N
 153	users-permissions	userspermissions	updaterole	f		1	\N	\N
+159	application	long-enough-name	delete	f		1	\N	\N
+172	application	yet-another-name	delete	f		2	\N	\N
 83	upload	upload	findone	f		1	\N	\N
 93	users-permissions	auth	callback	f		1	\N	\N
 103	users-permissions	auth	resetpassword	f		1	\N	\N
@@ -818,6 +944,8 @@ COPY public."users-permissions_permission" (id, type, controller, action, enable
 123	users-permissions	userspermissions	createrole	f		1	\N	\N
 135	users-permissions	userspermissions	getproviders	f		1	\N	\N
 143	users-permissions	userspermissions	index	f		1	\N	\N
+160	application	long-enough-name	delete	f		2	\N	\N
+173	application	yet-another-name	find	f		1	\N	\N
 86	upload	upload	getsettings	f		2	\N	\N
 97	users-permissions	auth	emailconfirmation	f		1	\N	\N
 106	users-permissions	auth	sendemailconfirmation	f		2	\N	\N
@@ -825,6 +953,8 @@ COPY public."users-permissions_permission" (id, type, controller, action, enable
 126	users-permissions	userspermissions	deleterole	f		2	\N	\N
 137	users-permissions	userspermissions	getrole	f		1	\N	\N
 145	users-permissions	userspermissions	searchusers	f		1	\N	\N
+161	application	long-enough-name	find	f		1	\N	\N
+174	application	yet-another-name	find	f		2	\N	\N
 89	upload	upload	updatesettings	f		1	\N	\N
 99	users-permissions	auth	forgotpassword	f		1	\N	\N
 109	users-permissions	user	create	f		1	\N	\N
@@ -832,6 +962,9 @@ COPY public."users-permissions_permission" (id, type, controller, action, enable
 129	users-permissions	userspermissions	getemailtemplate	f		1	\N	\N
 139	users-permissions	userspermissions	getroles	f		1	\N	\N
 149	users-permissions	userspermissions	updateemailtemplate	f		1	\N	\N
+162	application	long-enough-name	find	f		2	\N	\N
+166	application	long-enough-name	update	f		2	\N	\N
+175	application	yet-another-name	findone	f		1	\N	\N
 90	upload	upload	updatesettings	f		2	\N	\N
 100	users-permissions	auth	forgotpassword	t		2	\N	\N
 110	users-permissions	user	create	f		2	\N	\N
@@ -839,6 +972,8 @@ COPY public."users-permissions_permission" (id, type, controller, action, enable
 130	users-permissions	userspermissions	getemailtemplate	f		2	\N	\N
 140	users-permissions	userspermissions	getroles	f		2	\N	\N
 150	users-permissions	userspermissions	updateemailtemplate	f		2	\N	\N
+163	application	long-enough-name	findone	f		1	\N	\N
+176	application	yet-another-name	findone	f		2	\N	\N
 91	upload	upload	upload	f		1	\N	\N
 101	users-permissions	auth	register	f		1	\N	\N
 111	users-permissions	user	destroy	f		1	\N	\N
@@ -846,6 +981,7 @@ COPY public."users-permissions_permission" (id, type, controller, action, enable
 131	users-permissions	userspermissions	getpermissions	f		1	\N	\N
 141	users-permissions	userspermissions	getroutes	f		1	\N	\N
 151	users-permissions	userspermissions	updateproviders	f		1	\N	\N
+164	application	long-enough-name	findone	f		2	\N	\N
 92	upload	upload	upload	f		2	\N	\N
 102	users-permissions	auth	register	t		2	\N	\N
 112	users-permissions	user	destroy	f		2	\N	\N
@@ -853,6 +989,8 @@ COPY public."users-permissions_permission" (id, type, controller, action, enable
 132	users-permissions	userspermissions	getpermissions	f		2	\N	\N
 142	users-permissions	userspermissions	getroutes	f		2	\N	\N
 152	users-permissions	userspermissions	updateproviders	f		2	\N	\N
+167	application	yet-another-name	count	f		1	\N	\N
+177	application	yet-another-name	update	f		1	\N	\N
 \.
 
 
@@ -875,10 +1013,25 @@ COPY public."users-permissions_user" (id, username, email, provider, password, "
 
 
 --
+-- Data for Name: yet_another_names; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.yet_another_names (id, title, published_at, created_by, updated_by, created_at, updated_at) FROM stdin;
+\.
+
+
+--
 -- Name: core_store_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.core_store_id_seq', 20, true);
+SELECT pg_catalog.setval('public.core_store_id_seq', 24, true);
+
+
+--
+-- Name: long_enough_names_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.long_enough_names_id_seq', 1, false);
 
 
 --
@@ -892,7 +1045,7 @@ SELECT pg_catalog.setval('public.strapi_administrator_id_seq', 1, true);
 -- Name: strapi_permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.strapi_permission_id_seq', 49, true);
+SELECT pg_catalog.setval('public.strapi_permission_id_seq', 59, true);
 
 
 --
@@ -934,7 +1087,7 @@ SELECT pg_catalog.setval('public.upload_file_morph_id_seq', 1, false);
 -- Name: users-permissions_permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public."users-permissions_permission_id_seq"', 154, true);
+SELECT pg_catalog.setval('public."users-permissions_permission_id_seq"', 178, true);
 
 
 --
@@ -952,11 +1105,26 @@ SELECT pg_catalog.setval('public."users-permissions_user_id_seq"', 1, false);
 
 
 --
+-- Name: yet_another_names_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.yet_another_names_id_seq', 1, false);
+
+
+--
 -- Name: core_store core_store_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.core_store
     ADD CONSTRAINT core_store_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: long_enough_names long_enough_names_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.long_enough_names
+    ADD CONSTRAINT long_enough_names_pkey PRIMARY KEY (id);
 
 
 --
@@ -1077,6 +1245,14 @@ ALTER TABLE ONLY public."users-permissions_user"
 
 ALTER TABLE ONLY public."users-permissions_user"
     ADD CONSTRAINT "users-permissions_user_username_unique" UNIQUE (username);
+
+
+--
+-- Name: yet_another_names yet_another_names_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.yet_another_names
+    ADD CONSTRAINT yet_another_names_pkey PRIMARY KEY (id);
 
 
 --
